@@ -15,7 +15,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/do-an-lang-thang?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: illusion
+      SPRING_DATASOURCE_PASSWORD: phamvantanh
       SPRING_PROFILES_ACTIVE: docker
     command: --spring.profiles.active=docker
     networks:
@@ -26,7 +26,7 @@ services:
     networks:
       - spring-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: illusion
+      MYSQL_ROOT_PASSWORD: phamvantanh
       MYSQL_DATABASE: do-an-lang-thang
     volumes:
       - db-data:/var/lib/mysql
