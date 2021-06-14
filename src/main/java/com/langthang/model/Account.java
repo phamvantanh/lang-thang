@@ -28,9 +28,9 @@ public class Account {
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private Role role = Role.ROLE_USER;
+    @OneToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_on_id", referencedColumnName = "id")
+    private Role role;
 
     @Builder.Default
     private boolean enabled = false;

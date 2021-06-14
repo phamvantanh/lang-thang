@@ -8,10 +8,10 @@ import com.langthang.exception.CustomException;
 import com.langthang.model.Account;
 import com.langthang.model.Post;
 import com.langthang.model.PostReport;
-import com.langthang.model.Role;
 import com.langthang.repository.AccountRepository;
 import com.langthang.repository.PostReportRepository;
 import com.langthang.repository.PostRepository;
+import com.langthang.repository.impl.RoleRepository;
 import com.langthang.services.IAdminServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,8 @@ import java.util.List;
 public class AdminServicesImpl implements IAdminServices {
 
     private final AccountRepository accRepo;
+
+    private final RoleRepository roleRepo;
 
     private final PostRepository postRepo;
 
@@ -54,7 +56,7 @@ public class AdminServicesImpl implements IAdminServices {
                     HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        account.setRole(Role.ROLE_ADMIN);
+        account.setRole(roleRepo.findRoleByName("ROLE_ADMIN"));
         accRepo.saveAndFlush(account);
     }
 

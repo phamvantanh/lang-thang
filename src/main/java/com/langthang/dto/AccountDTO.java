@@ -2,7 +2,6 @@ package com.langthang.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.langthang.model.Account;
-import com.langthang.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +35,7 @@ public class AccountDTO {
 
     private String about;
 
-    private Role role = null;
+    private String role = null;
 
     private boolean isFollowed = false;
 
@@ -45,7 +44,7 @@ public class AccountDTO {
                 .accountId(entity.getId())
                 .name(entity.getName())
                 .email(entity.getEmail())
-                .role(entity.getRole() != Role.ROLE_ADMIN ? null : entity.getRole())
+                .role(entity.getRole().isAdmin() ? "ROLE_ADMIN" : null)
                 .avatarLink(entity.getAvatarLink())
                 .fbLink(entity.getFbLink())
                 .instagramLink(entity.getInstagramLink())

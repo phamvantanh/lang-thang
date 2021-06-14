@@ -2,8 +2,8 @@ package com.langthang.controller;
 
 import com.langthang.dto.PostRequestDTO;
 import com.langthang.dto.PostResponseDTO;
-import com.langthang.model.Role;
 import com.langthang.services.IPostServices;
+import com.langthang.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -133,7 +133,7 @@ public class PostController {
             Authentication authentication) {
 
         String requestEmail = authentication.getName();
-        boolean isAdmin = authentication.getAuthorities().contains(Role.ROLE_ADMIN);
+        boolean isAdmin = SecurityUtils.isAdmin(authentication);
 
         if (isAdmin) {
             postServices.deleteReportedPost(postId, requestEmail);

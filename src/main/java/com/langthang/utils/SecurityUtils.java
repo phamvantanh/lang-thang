@@ -18,4 +18,12 @@ public class SecurityUtils {
         }
     }
 
+    public static boolean isAdmin(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated())
+            return false;
+
+        return authentication.getAuthorities()
+                .stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+    }
 }

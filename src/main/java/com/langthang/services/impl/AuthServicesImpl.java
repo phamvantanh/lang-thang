@@ -11,6 +11,7 @@ import com.langthang.model.RegisterToken;
 import com.langthang.repository.AccountRepository;
 import com.langthang.repository.PasswordResetTokenRepository;
 import com.langthang.repository.RegisterTokenRepository;
+import com.langthang.repository.impl.RoleRepository;
 import com.langthang.services.IAuthServices;
 import com.langthang.services.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,8 @@ import java.util.UUID;
 public class AuthServicesImpl implements IAuthServices {
 
     private final AccountRepository accountRepository;
+
+    private final RoleRepository roleRepo;
 
     private final JwtTokenServices jwtTokenServices;
 
@@ -107,6 +110,7 @@ public class AuthServicesImpl implements IAuthServices {
         Account account = new Account();
         account.setName(accountRegisterDTO.getName());
         account.setEmail(accountRegisterDTO.getEmail());
+        account.setRole(roleRepo.findRoleByName("ROLE_USER"));
         account.setPassword(passwordEncoder.encode(accountRegisterDTO.getPassword()));
 
         return accountRepository.save(account);
@@ -200,6 +204,7 @@ public class AuthServicesImpl implements IAuthServices {
                 Account createdAccount = Account.builder()
                         .email(email)
                         .name(name)
+                        .role(roleRepo.findRoleByName("ROLE_USER"))
                         .avatarLink(avatarLink)
                         .enabled(true)
                         .build();
